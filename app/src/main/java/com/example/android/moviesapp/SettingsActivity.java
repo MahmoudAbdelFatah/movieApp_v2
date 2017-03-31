@@ -1,14 +1,14 @@
 package com.example.android.moviesapp;
 
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SettingsActivity extends PreferenceFragmentCompat {
+public class SettingsActivity extends PreferenceActivity{
     private ListPreference mListPreference;
 
     @Override
