@@ -1,40 +1,31 @@
 package com.example.android.moviesapp;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
-public class SettingsActivity extends PreferenceActivity {
-    private ListPreference mListPreference;
-
+public class SettingsActivity extends AppCompatActivity {
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
-        setPreferencesFromResource(R.xml.app_preferences, s);
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+        ActionBar actionBar = this.getSupportActionBar();
+        if(actionBar !=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mListPreference = (ListPreference) getPreferenceManager().findPreference(getString(R.string.pref_movie_key));
-        mListPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object value) {
-                String stringValue = value.toString();
-                if (preference instanceof ListPreference) {
-                    mListPreference = (ListPreference) preference;
-                    int prefIdx = mListPreference.findIndexOfValue(stringValue);
-                    if (prefIdx >= 0) {
-                        preference.setSummary(mListPreference.getEntries()[prefIdx]);
-                    }
-                } else {
-                    preference.setSummary(stringValue);
-                }
-                return true;
-            }
-        });
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
