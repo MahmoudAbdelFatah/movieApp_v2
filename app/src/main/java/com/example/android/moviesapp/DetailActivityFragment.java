@@ -51,7 +51,8 @@ public class DetailActivityFragment extends Fragment {
         movieRating = (TextView) rootView.findViewById(R.id.movie_rating);
         overView = (TextView) rootView.findViewById(R.id.overView);
         getActivity().setTitle(dataItem.getOriginal_title());
-        Picasso.with(getContext()).load(dataItem.getBackdrop_path())
+        Picasso.with(getContext())
+                .load(dataItem.getBackdrop_path())
                 .into(backdropImage);
         Picasso.with(getContext()).load(dataItem.getImageUrl())
                 .into(posterImage);
