@@ -145,46 +145,6 @@ public class MainActivityFragment extends Fragment {
                                 Log.i("test", "in ION");
                                 //recyclerAdapter.add(dataItem);
                                 lstDataItems.add(dataItem);
-
-                                /*dataItem = new DataItem();
-
-                                //Image Poster
-                                String imageUrl = jsonArray.get(i).getAsJsonObject().get("poster_path").toString();
-                                imageUrl = imageUrl.substring(2, imageUrl.length() - 1);
-                                imageUrl = Uris.IMAGE_PATH + imageUrl;
-                                //dataItem.imageUrl = imageUrl;
-
-                                //overView
-                                String overView = jsonArray.get(i).getAsJsonObject().get("overview").toString();
-                                overView = overView.substring(1, overView.length() - 1);
-                                //dataItem.overview = tmp;
-
-                                //original title for movie
-                                String original_title = jsonArray.get(i).getAsJsonObject().get("original_title").toString();
-                                original_title = original_title.substring(1, original_title.length() - 1);
-                                //dataItem.original_title = tmp;
-
-                                //vote average
-                                String vote_average = jsonArray.get(i).getAsJsonObject().get("vote_average").toString();
-                                vote_average = vote_average + "/10.0";
-                                //dataItem.vote_average = tmp;
-
-                                //release Date
-                                String release_date = jsonArray.get(i).getAsJsonObject().get("release_date").toString();
-                                release_date = release_date.substring(1, release_date.length() - 1);
-                                //dataItem.release_date = tmp;
-
-                                String backdrop_path = jsonArray.get(i).getAsJsonObject().get("backdrop_path").toString();
-                                backdrop_path = backdrop_path.substring(2, backdrop_path.length() - 1);
-                                backdrop_path = Uris.IMAGE_PATH + backdrop_path;
-                                //dataItem.backdrop_path = imageUrl;
-
-                                Integer id = Integer.parseInt(jsonArray.get(i).getAsJsonObject().get("id").toString());
-                               // new DataItem(original_title , overView, release_date, vote_average,
-                                 //       release_date, backdrop_path , id);
-                                Log.i("test", "in ION");
-                                //recyclerAdapter.add(dataItem);
-                                lstDataItems.add(dataItem);*/
                             }
                         }
                         Log.i("test", "" + lstDataItems.size());
