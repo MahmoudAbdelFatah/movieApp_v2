@@ -15,7 +15,6 @@ public class DataItem implements Parcelable {
     public String backdrop_path;
     public Integer id;
 
-
     public DataItem(){
 
     }
@@ -41,12 +40,10 @@ public class DataItem implements Parcelable {
         dest.writeInt(id);
     }
 
-
     @Override
     public int describeContents() {
         return 0;
     }
-
 
     public static final Creator<DataItem> CREATOR = new Creator<DataItem>() {
         @Override
@@ -81,6 +78,4 @@ public class DataItem implements Parcelable {
     public Integer getId(){
         return id;
     }
-
-
 }

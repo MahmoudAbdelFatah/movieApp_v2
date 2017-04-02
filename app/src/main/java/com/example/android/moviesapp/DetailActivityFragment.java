@@ -54,7 +54,8 @@ public class DetailActivityFragment extends Fragment {
         Picasso.with(getContext())
                 .load(dataItem.getBackdrop_path())
                 .into(backdropImage);
-        Picasso.with(getContext()).load(dataItem.getImageUrl())
+        Picasso.with(getContext())
+                .load(dataItem.getImageUrl())
                 .into(posterImage);
 
         movieTitle.setText(dataItem.getOriginal_title());
