@@ -3,11 +3,15 @@
     <string-array name="pref_values">
         <item>@string/pref_popular_key</item>
         <item>@string/pref_rated_key</item>
+        <item>@string/pref_favorite_key</item>
+
     </string-array>
 
     <string-array name="pref_options">
         <item>@string/pref_popular_label</item>
         <item>@string/pref_rated_label</item>
+        <item>@string/pref_favorite_label</item>
+
     </string-array>
 
 </resources>

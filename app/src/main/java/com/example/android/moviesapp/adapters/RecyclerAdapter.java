@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.android.moviesapp.DetailActivity;
 import com.example.android.moviesapp.R;
 import com.example.android.moviesapp.data.DataItem;
+import com.example.android.moviesapp.interfaces.MovieChosen;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,12 +25,16 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>{
     private List<DataItem> lstDataItems;
     private Context mContext;
+    private MovieChosen mMovieChosen;
 
     public RecyclerAdapter(Context context, List<DataItem> dataItems) {
         this.lstDataItems = dataItems;
         mContext = context;
     }
 
+    public void setMovieChosen(MovieChosen mMovieChosen){
+        this.mMovieChosen = mMovieChosen;
+    }
 
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -15,6 +15,9 @@
     <string name="pref_popular_label" translatable="true">Popular</string>
     <string name="pref_popular_key" translatable="false">popular</string>
 
+    <string name="pref_favorite_label" translatable="true">Favorites</string>
+    <string name="pref_favorite_key" translatable="false">favorite_movie</string>
+
     <string name="pref_order_default">popular</string>
 
     <string name="error_message">Failed to get results, Please try again.</string>

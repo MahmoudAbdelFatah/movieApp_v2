@@ -13,4 +13,11 @@ public class Uris {
     public static final String TOP_RATED = "top_rated/";
     public static final String POPULAR="popular/";
     public static final String IMAGE_PATH = "http://image.tmdb.org/t/p/w185/";
+
+    //Trailers and Reviews
+    public static final String TRAILER="/videos";
+    public static final String REVIEWS="/reviews";
+
+    //youtube
+    public static final String YOUTUBE_LIKE = "youtube.com/watch?v=";
 }

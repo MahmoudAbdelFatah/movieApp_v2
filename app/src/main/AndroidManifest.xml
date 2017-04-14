@@ -37,6 +37,10 @@
             android:parentActivityName=".MainActivity"
             >
         </activity>
+        <provider
+            android:authorities="com.example.android.moviesapp"
+            android:name=".database.FavoriteMoviesProvider"
+            />
 
     </application>
 

@@ -1,6 +1,8 @@
 package com.example.android.moviesapp;
 
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -12,10 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.android.moviesapp.adapters.RecyclerAdapter;
 import com.example.android.moviesapp.data.DataItem;
 import com.example.android.moviesapp.data.Uris;
+import com.example.android.moviesapp.database.FavoriteMoviesContract;
+import com.example.android.moviesapp.database.FavoriteMoviesDbHelper;
+import com.example.android.moviesapp.interfaces.MovieChosen;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -31,8 +37,10 @@ public class MainActivityFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
-    SharedPreferences sharedPref;
+    private SharedPreferences sharedPref;
     public static ArrayList<DataItem>lstDataItems;
+    private FavoriteMoviesDbHelper mFavoriteMoviesDbHelper;
+    private Toast mToast;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +56,7 @@ public class MainActivityFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
         recyclerAdapter = new RecyclerAdapter(getActivity() , lstDataItems);
+        recyclerAdapter.setMovieChosen((MovieChosen) getActivity());
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns()));
         recyclerView.setAdapter(recyclerAdapter);
@@ -63,13 +72,15 @@ public class MainActivityFragment extends Fragment {
         if (nColumns < 2) return 2;
         return nColumns;
     }
+
+
     @Override
     public void onStart() {
         super.onStart();
         updateOrderType();
     }
 
-    public void updateOrderType(){
+    private void updateOrderType(){
         lstDataItems.clear();
         String query="";
         URL url ;
@@ -85,12 +96,23 @@ public class MainActivityFragment extends Fragment {
                     query =Uris.MOVIE_BASE_URL+Uris.POPULAR+"?api_key="+Uris.API_KEY;
                     downloadFromInternet(query);
                     break;
+                case "favorite_movie":
+                    getFavoriteMoviesFromDb();
+                    if(lstDataItems.size()>0){
+                        recyclerAdapter.notifyDataSetChanged();
+                    }else{
+                        if(mToast != null)
+                            mToast.cancel();
+                        mToast = Toast.makeText(getContext() , "There isn't Favorite Movies", Toast.LENGTH_LONG);
+                        mToast.show();
+                        recyclerAdapter.notifyDataSetChanged();
+                    }
+                    break;
             }
 
         }catch (Exception e){
             Log.e("connect", "the internet not working");
         }
-
     }
 
     private void downloadFromInternet(String url){
@@ -151,5 +173,29 @@ public class MainActivityFragment extends Fragment {
                         recyclerAdapter.notifyDataSetChanged();
                     }
                 });
+    }
+
+    private void getFavoriteMoviesFromDb(){
+        mFavoriteMoviesDbHelper = new FavoriteMoviesDbHelper(getContext());
+        String selectQuery = "SELECT  * FROM " + FavoriteMoviesContract.FavoriteMoviesEntry.TABLE_NAME;
+        SQLiteDatabase db  = mFavoriteMoviesDbHelper.getReadableDatabase();
+        Cursor cursor      = db.rawQuery(selectQuery, null);
+        DataItem dataItem ;
+        if (cursor.moveToFirst()) {
+            do {
+                dataItem = new DataItem();
+                //Read row by row
+                dataItem.id = Integer.parseInt(cursor.getString(0));
+                dataItem.original_title = cursor.getString(1);
+                dataItem.overview = cursor.getString(2);
+                dataItem.imageUrl = cursor.getString(3);
+                dataItem.vote_average = cursor.getString(4);
+                dataItem.release_date = cursor.getString(5);
+                dataItem.backdrop_path = cursor.getString(6);
+                lstDataItems.add(dataItem);
+            } while (cursor.moveToNext());
+            recyclerAdapter.notifyDataSetChanged();
+        }
+        cursor.close();
     }
 }

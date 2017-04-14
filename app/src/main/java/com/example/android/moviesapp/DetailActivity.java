@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.moviesapp.data.DataItem;
+
 public class DetailActivity extends AppCompatActivity {
 
     @Override
@@ -15,13 +17,24 @@ public class DetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
 
+        if (savedInstanceState == null) {
+            if(MainActivity.mTwoPane){
+                Bundle args = getIntent().getExtras();
+                DetailActivityFragment fragment = new DetailActivityFragment();
+                fragment.setArguments(args);
+                DataItem dataItem = (DataItem) args.get("MOVIE");
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.detail_container_pane, fragment)
+                        .commit();
+            }
+            else {
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.detail_container, new DetailActivityFragment())
                         .commit();
+
+            }
+
         }
     }
 
