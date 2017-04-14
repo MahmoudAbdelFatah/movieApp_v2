@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -18,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,7 +50,7 @@ public class DetailActivityFragment extends Fragment implements
     private TextView movieRating;
     private TextView overView;
     private DataItem dataItem;
-    private FloatingActionButton fabButton;
+    private Button fabButton;
     private boolean isFav=false;
 
     private RecyclerView recyclerView1;
@@ -88,7 +88,7 @@ public class DetailActivityFragment extends Fragment implements
         }
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         checkFav();
-        fabButton = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fabButton = (Button) rootView.findViewById(R.id.btn_favourite);
         backdropImage = (ImageView) rootView.findViewById(R.id.backdrop_image);
         posterImage = (ImageView) rootView.findViewById(R.id.movie_poster);
         movieTitle = (TextView) rootView.findViewById(R.id.movie_title);
