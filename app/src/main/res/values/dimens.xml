@@ -3,4 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_small">2dp</dimen>
+    <dimen name="layout_height_img_view_1">150dp</dimen>
+    <dimen name="layout_height_txt_view_2">250dp</dimen>
+    <dimen name="layout_width_img_view_2">150dp</dimen>
+
 </resources>

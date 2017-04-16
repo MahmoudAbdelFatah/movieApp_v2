@@ -129,9 +129,15 @@ public class DetailActivityFragment extends Fragment  {
         rvTrailer.setAdapter(trailerRecyclerAdapter);
 
         rvTrailer.setAdapter(new TrailerRecyclerAdapter(lstTrailers, new OnItemClickListener() {
+
+
             @Override public void onItemClick(int position) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" +
-                        lstTrailers.get(position).getKey())));
+                Uri uri = Uri.parse("https://www.youtube.com/watch?v=" +
+                        lstTrailers.get(position).getKey());
+                Intent intent = new Intent(Intent.ACTION_VIEW , uri);
+                //if(intent.resolveActivity(getPackageManager()) != null){
+                    startActivity(intent);
+                //}
             }
         }));
 

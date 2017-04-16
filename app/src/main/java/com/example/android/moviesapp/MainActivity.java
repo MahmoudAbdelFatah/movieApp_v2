@@ -3,7 +3,6 @@ package com.example.android.moviesapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,8 +16,8 @@ public class MainActivity extends AppCompatActivity implements MovieChosen {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements MovieChosen {
 
         }else{
             mTwoPane=false;
+
         }
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MovieChosen {
 
     @Override
     public void paneHandleItemClick(DataItem dataItem) {
-        if (mTwoPane) {
+        if(mTwoPane){
             Bundle args = new Bundle();
             args.putParcelable("MOVIE", dataItem);
 
@@ -64,7 +64,9 @@ public class MainActivity extends AppCompatActivity implements MovieChosen {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_container_pane, fragment)
                     .commit();
-        } else {
+
+
+        }else{
             startActivity(new Intent(this, DetailActivity.class));
         }
     }

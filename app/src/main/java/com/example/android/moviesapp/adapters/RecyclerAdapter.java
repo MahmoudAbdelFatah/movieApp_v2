@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.moviesapp.DetailActivity;
+import com.example.android.moviesapp.MainActivity;
 import com.example.android.moviesapp.R;
 import com.example.android.moviesapp.data.DataItem;
 import com.example.android.moviesapp.interfaces.MovieChosen;
@@ -64,10 +65,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pos = "" + position;
-                Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra(intent.EXTRA_TEXT, pos);
-                mContext.startActivity(intent);
+                if(!MainActivity.mTwoPane) {
+                    String pos = "" + position;
+                    Intent intent = new Intent(mContext, DetailActivity.class);
+                    intent.putExtra(intent.EXTRA_TEXT, pos);
+                    mContext.startActivity(intent);
+                }else{
+                    mMovieChosen.paneHandleItemClick(dataItem);
+                }
             }
         });
     }

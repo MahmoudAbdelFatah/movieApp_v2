@@ -1,4 +1,6 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com.tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,13 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="@dimen/margin_small"
         android:id="@+id/details_container"
         >
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/layout_height_img_view_1"
             android:id="@+id/backdrop_image"
             android:layout_gravity="center_vertical"
             android:scaleType="fitXY"
@@ -26,8 +28,8 @@
             >
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="250dp"
+                android:layout_width="@dimen/layout_width_img_view_2"
+                android:layout_height="@dimen/layout_height_txt_view_2"
                 android:id="@+id/movie_poster"
                 android:padding="8dp"
                 />
