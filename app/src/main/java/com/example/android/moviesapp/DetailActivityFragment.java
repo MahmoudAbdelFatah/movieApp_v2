@@ -71,15 +71,10 @@ public class DetailActivityFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(MainActivity.mTwoPane)
-            dataItem = getArguments().getParcelable("MOVIE");
-        else
-        {
-            Intent intent = getActivity().getIntent();
-            if(intent !=null && intent.hasExtra(intent.EXTRA_TEXT)) {
-                Integer position = Integer.parseInt(intent.getStringExtra(intent.EXTRA_TEXT));
-                dataItem = MainActivityFragment.lstDataItems.get(position);
-            }
+        Intent intent = getActivity().getIntent();
+        if(intent !=null && intent.hasExtra(intent.EXTRA_TEXT)) {
+            Integer position = Integer.parseInt(intent.getStringExtra(intent.EXTRA_TEXT));
+            dataItem = MainActivityFragment.lstDataItems.get(position);
         }
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         setHasOptionsMenu(true);
@@ -124,13 +119,10 @@ public class DetailActivityFragment extends Fragment  {
 
         getReviews();
         reviewRecyclerAdapter = new ReviewRecyclerAdapter(getContext(), lstReview);
-
-        rvReview.setAdapter(reviewRecyclerAdapter);
         rvTrailer.setAdapter(trailerRecyclerAdapter);
+        rvReview.setAdapter(reviewRecyclerAdapter);
 
         rvTrailer.setAdapter(new TrailerRecyclerAdapter(lstTrailers, new OnItemClickListener() {
-
-
             @Override public void onItemClick(int position) {
                 Uri uri = Uri.parse("https://www.youtube.com/watch?v=" +
                         lstTrailers.get(position).getKey());
@@ -246,6 +238,7 @@ public class DetailActivityFragment extends Fragment  {
                                 }
                             }
                             Log.i("test", "" + lstTrailers.size());
+                            trailerRecyclerAdapter.notifyDataSetChanged();
                         }
                     });
         } catch (Exception e) {
@@ -293,6 +286,8 @@ public class DetailActivityFragment extends Fragment  {
                                 }
                             }
                             Log.i("test", "" + lstReview.size());
+                            reviewRecyclerAdapter.notifyDataSetChanged();
+                            //reviewRecyclerAdapter.notify();
                         }
                     });
         } catch (Exception e) {
