@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.android.moviesapp.R;
 import com.example.android.moviesapp.data.Trailer;
+import com.example.android.moviesapp.interfaces.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -17,9 +18,14 @@ import java.util.ArrayList;
  */
 
 public class TrailerRecyclerAdapter extends RecyclerView.Adapter<TrailerRecyclerAdapter.ViewHolder> {
-
     private ArrayList<Trailer> mTrailers;
     private Context mContext;
+    private OnItemClickListener listener;
+
+    public TrailerRecyclerAdapter(ArrayList<Trailer> trailers, OnItemClickListener listener) {
+        this.mTrailers = trailers;
+        this.listener = listener;
+    }
 
     public TrailerRecyclerAdapter(Context context, ArrayList<Trailer> trailers ) {
         this.mTrailers = trailers;
@@ -45,6 +51,7 @@ public class TrailerRecyclerAdapter extends RecyclerView.Adapter<TrailerRecycler
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.trailer_title.setText(mTrailers.get(position).getName());
+        viewHolder.bind(mTrailers.get(position), listener , position);
     }
 
     // Returns the total count of items in the list
@@ -60,6 +67,13 @@ public class TrailerRecyclerAdapter extends RecyclerView.Adapter<TrailerRecycler
             super(itemView);
             trailer_title = (TextView) itemView.findViewById(R.id.trailer_title);
 
+        }
+        public void bind(final Trailer trailer, final OnItemClickListener listener , final int position) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(position);
+                }
+            });
         }
     }
 }

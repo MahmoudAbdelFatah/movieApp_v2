@@ -19,7 +19,7 @@ public class Trailer {
     }
 
     public void setKey(String Key) {
-        this.key = key;
+        this.key = Key;
     }
     public void setName(String name) {
         this.name = name;

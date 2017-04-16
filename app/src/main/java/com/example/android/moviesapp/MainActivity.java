@@ -19,13 +19,14 @@ public class MainActivity extends AppCompatActivity implements MovieChosen {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         if(findViewById(R.id.detail_container_pane) != null){
             mTwoPane=true;
 
         }else{
             mTwoPane=false;
-
         }
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -67,6 +68,4 @@ public class MainActivity extends AppCompatActivity implements MovieChosen {
             startActivity(new Intent(this, DetailActivity.class));
         }
     }
-
-
 }

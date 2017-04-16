@@ -8,9 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +26,7 @@ import com.example.android.moviesapp.data.Review;
 import com.example.android.moviesapp.data.Trailer;
 import com.example.android.moviesapp.data.Uris;
 import com.example.android.moviesapp.database.FavoriteMoviesContract;
+import com.example.android.moviesapp.interfaces.OnItemClickListener;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -41,8 +38,7 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailActivityFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class DetailActivityFragment extends Fragment  {
     private ImageView backdropImage;
     private ImageView posterImage;
     private TextView movieTitle;
@@ -50,16 +46,15 @@ public class DetailActivityFragment extends Fragment implements
     private TextView movieRating;
     private TextView overView;
     private DataItem dataItem;
-    private Button fabButton;
+    private Button mButton;
     private boolean isFav=false;
 
-    private RecyclerView recyclerView1;
-    private RecyclerView recyclerView2;
+    private RecyclerView rvTrailer , rvReview;
+
     private ReviewRecyclerAdapter reviewRecyclerAdapter;
     private TrailerRecyclerAdapter trailerRecyclerAdapter;
     public static ArrayList<Trailer> lstTrailers = new ArrayList<>();
     public static ArrayList<Review> lstReview = new ArrayList<>();
-    private ListView lvTrailer, lvReview;
     private Trailer mTrailers;
     private Review mReview;
     private Toast mToast;
@@ -87,8 +82,12 @@ public class DetailActivityFragment extends Fragment implements
             }
         }
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+        setHasOptionsMenu(true);
+        mButton = (Button) rootView.findViewById(R.id.btn_favourite);
         checkFav();
-        fabButton = (Button) rootView.findViewById(R.id.btn_favourite);
+        if(isFav){
+            mButton.setBackgroundResource(R.drawable.add_to_db);
+        }
         backdropImage = (ImageView) rootView.findViewById(R.id.backdrop_image);
         posterImage = (ImageView) rootView.findViewById(R.id.movie_poster);
         movieTitle = (TextView) rootView.findViewById(R.id.movie_title);
@@ -110,15 +109,15 @@ public class DetailActivityFragment extends Fragment implements
         movieRating.setText(dataItem.getVote_average());
         overView.setText(dataItem.getOverview());
 
-        recyclerView1 =(RecyclerView) rootView.findViewById(R.id.recyclerView_review);
-        recyclerView2 = (RecyclerView) rootView.findViewById(R.id.recyclerView_trailer);
+        rvTrailer =(RecyclerView) rootView.findViewById(R.id.recyclerView_trailer);
+        rvReview = (RecyclerView) rootView.findViewById(R.id.recyclerView_review);
 
         //set layout manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
 
-        recyclerView1.setLayoutManager(linearLayoutManager);
-        recyclerView2.setLayoutManager(linearLayoutManager2);
+        rvTrailer.setLayoutManager(linearLayoutManager);
+        rvReview.setLayoutManager(linearLayoutManager2);
 
         getTrailers();
         trailerRecyclerAdapter = new TrailerRecyclerAdapter(getContext(), lstTrailers);
@@ -126,17 +125,26 @@ public class DetailActivityFragment extends Fragment implements
         getReviews();
         reviewRecyclerAdapter = new ReviewRecyclerAdapter(getContext(), lstReview);
 
-        recyclerView1.setAdapter(reviewRecyclerAdapter);
-        recyclerView2.setAdapter(trailerRecyclerAdapter);
+        rvReview.setAdapter(reviewRecyclerAdapter);
+        rvTrailer.setAdapter(trailerRecyclerAdapter);
+
+        rvTrailer.setAdapter(new TrailerRecyclerAdapter(lstTrailers, new OnItemClickListener() {
+            @Override public void onItemClick(int position) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" +
+                        lstTrailers.get(position).getKey())));
+            }
+        }));
+
 
         if(isFav){
 
         }
-        fabButton.setOnClickListener(new View.OnClickListener() {
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!isFav){
                     isFav=true;
+                    mButton.setBackgroundResource(R.drawable.add_to_db);
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.MOVIE_ID, dataItem.getId());
                     contentValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.MOVIE_ORIGINAL_TITLE, dataItem.getOriginal_title());
@@ -157,6 +165,7 @@ public class DetailActivityFragment extends Fragment implements
                         }
                 }else {
                     isFav = false;
+                    mButton.setBackgroundResource(R.drawable.remove_from_db);
                     int rowDeleted = getContext().getContentResolver().delete(
                             FavoriteMoviesContract.FavoriteMoviesEntry.CONTENT_URI,
                             FavoriteMoviesContract.FavoriteMoviesEntry.MOVIE_ID+" = ?" ,
@@ -195,33 +204,6 @@ public class DetailActivityFragment extends Fragment implements
         // if Database contains movie
         isFav = true;
         cursor.close();
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<Cursor>(getContext()) {
-
-            @Override
-            protected void onStartLoading() {
-                super.onStartLoading();
-            }
-
-            @Override
-            public Cursor loadInBackground() {
-                return null;
-            }
-
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 
     public void getTrailers() {
