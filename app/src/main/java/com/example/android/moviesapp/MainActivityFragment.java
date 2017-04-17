@@ -1,8 +1,11 @@
 package com.example.android.moviesapp;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -63,6 +66,8 @@ public class MainActivityFragment extends Fragment {
         recyclerAdapter.setMovieChosen((MovieChosen) getActivity());
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns()));
+
+        //View emptyRecyclerView = rootView.findViewById(R.id.list_movies_empty);
         recyclerView.setAdapter(recyclerAdapter);
 
         return rootView;
@@ -81,6 +86,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        recyclerView.setAdapter(recyclerAdapter);
         updateOrderType();
     }
 
@@ -94,11 +100,29 @@ public class MainActivityFragment extends Fragment {
             switch (orderType){
                 case "top_rated":
                     query= Uris.MOVIE_BASE_URL+Uris.TOP_RATED+"?api_key="+Uris.API_KEY;
-                    downloadFromInternet(query);
+                    if(isNetworkAvailable(getContext())) {
+                        downloadFromInternet(query);
+                    }
+                    else{
+                        if(mToast !=null)
+                            mToast.cancel();
+                        mToast =Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_LONG);
+                        mToast.show();
+
+                    }
                     break;
                 case "popular":
                     query =Uris.MOVIE_BASE_URL+Uris.POPULAR+"?api_key="+Uris.API_KEY;
-                    downloadFromInternet(query);
+                    if(isNetworkAvailable(getContext())) {
+                        downloadFromInternet(query);
+                    }
+                    else{
+                        if(mToast !=null)
+                            mToast.cancel();
+                        mToast =Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_LONG);
+                        mToast.show();
+
+                    }
                     break;
                 case "favorite_movie":
                     getFavoriteMoviesFromDb();
@@ -209,5 +233,12 @@ public class MainActivityFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 }
