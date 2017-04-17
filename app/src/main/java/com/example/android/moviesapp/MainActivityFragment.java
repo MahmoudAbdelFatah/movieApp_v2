@@ -1,8 +1,9 @@
 package com.example.android.moviesapp;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -178,11 +179,14 @@ public class MainActivityFragment extends Fragment {
                 });
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void getFavoriteMoviesFromDb(){
-        mFavoriteMoviesDbHelper = new FavoriteMoviesDbHelper(getContext());
-        String selectQuery = "SELECT  * FROM " + FavoriteMoviesContract.FavoriteMoviesEntry.TABLE_NAME;
-        SQLiteDatabase db  = mFavoriteMoviesDbHelper.getReadableDatabase();
-        Cursor cursor      = db.rawQuery(selectQuery, null);
+        Cursor cursor = getContext().getContentResolver().query(
+                FavoriteMoviesContract.FavoriteMoviesEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
         DataItem dataItem ;
         if (cursor.moveToFirst()) {
             do {

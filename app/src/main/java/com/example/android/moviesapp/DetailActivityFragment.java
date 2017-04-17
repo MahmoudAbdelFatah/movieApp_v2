@@ -182,10 +182,6 @@ public class DetailActivityFragment extends Fragment  {
         return rootView;
     }
 
-    private void savaClicked(){
-        ContentValues contentValues = new ContentValues();
-
-    }
     private void checkFav() {
         Cursor cursor = getContext().getContentResolver().query(
                 FavoriteMoviesContract.FavoriteMoviesEntry.CONTENT_URI,
