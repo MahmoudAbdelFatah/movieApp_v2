@@ -1,4 +1,4 @@
-package com.example.android.moviesapp;
+package com.example.android.moviesapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,18 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.moviesapp.R;
+import com.example.android.moviesapp.activity.fragment.MainActivityFragment;
 import com.example.android.moviesapp.data.DataItem;
-import com.example.android.moviesapp.interfaces.MovieChosen;
+import com.example.android.moviesapp.interfaces.IMovieChosen;
 
-public class MainActivity extends AppCompatActivity implements MovieChosen {
+public class MainActivity extends AppCompatActivity implements IMovieChosen {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements MovieChosen {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void paneHandleItemClick(DataItem dataItem) {

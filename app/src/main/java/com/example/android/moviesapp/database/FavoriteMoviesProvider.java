@@ -16,10 +16,6 @@ import static com.example.android.moviesapp.database.FavoriteMoviesContract.CONT
 import static com.example.android.moviesapp.database.FavoriteMoviesContract.FavoriteMoviesEntry.TABLE_NAME;
 import static com.example.android.moviesapp.database.FavoriteMoviesContract.PATH_FAVORITE;
 
-/**
- * Created by Mahmoud on 4/6/2017.
- */
-
 public class FavoriteMoviesProvider extends ContentProvider {
     private FavoriteMoviesDbHelper mFavoriteMoviesDbHelper;
     public static final int FAVORITE_MOVIES = 100;

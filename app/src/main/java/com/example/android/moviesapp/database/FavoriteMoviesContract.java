@@ -3,10 +3,6 @@ package com.example.android.moviesapp.database;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-/**
- * Created by Mahmoud on 4/6/2017.
- */
-
 public class FavoriteMoviesContract {
     /*
         1) Content authority,

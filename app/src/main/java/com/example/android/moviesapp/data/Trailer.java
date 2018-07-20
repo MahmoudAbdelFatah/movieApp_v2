@@ -1,8 +1,5 @@
 package com.example.android.moviesapp.data;
 
-/**
- * Created by Mahmoud on 4/13/2017.
- */
 
 public class Trailer {
     public Trailer(){

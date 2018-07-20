@@ -1,4 +1,4 @@
-package com.example.android.moviesapp;
+package com.example.android.moviesapp.activity.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,9 +7,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 
-/**
- * Created by Mahmoud on 3/31/2017.
- */
+import com.example.android.moviesapp.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener{

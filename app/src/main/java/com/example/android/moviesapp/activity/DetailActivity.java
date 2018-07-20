@@ -1,10 +1,13 @@
-package com.example.android.moviesapp;
+package com.example.android.moviesapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.android.moviesapp.R;
+import com.example.android.moviesapp.activity.fragment.DetailActivityFragment;
 
 public class DetailActivity extends AppCompatActivity {
 

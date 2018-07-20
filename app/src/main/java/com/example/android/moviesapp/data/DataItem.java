@@ -3,9 +3,6 @@ package com.example.android.moviesapp.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Mahmoud on 3/23/2017.
- */
 public class DataItem implements Parcelable {
     public String original_title;
     public String overview;

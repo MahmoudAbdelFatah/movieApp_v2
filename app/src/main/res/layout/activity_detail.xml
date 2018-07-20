@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_detail"
@@ -16,7 +15,7 @@
         android:id="@+id/detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.android.moviesapp.DetailActivity"
+        tools:context="com.example.android.moviesapp.activity.DetailActivity"
         >
     </FrameLayout>
 

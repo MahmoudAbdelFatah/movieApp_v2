@@ -12,17 +12,12 @@ import com.example.android.moviesapp.data.Review;
 
 import java.util.ArrayList;
 
-
-/**
- * Created by Mahmoud on 4/13/2017.
- */
-
-public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAdapter.ViewHolder> {
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
 
     private ArrayList<Review> mReviews;
     private Context mContext;
 
-    public ReviewRecyclerAdapter(Context context, ArrayList<Review> reviews) {
+    public ReviewAdapter(Context context, ArrayList<Review> reviews) {
         this.mReviews = reviews;
         mContext = context;
     }

@@ -25,6 +25,9 @@
     <string name="title_activity_settings2">SettingsActivity2</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="action_sort">Sort</string>
+    <string name="sort_by_popularity">Popular</string>
+    <string name="sort_by_rating">Rating</string>
+    <string name="sort_by_favorite">Favorite</string>
 
 </resources>

@@ -1,7 +1,9 @@
-package com.example.android.moviesapp;
+package com.example.android.moviesapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.android.moviesapp.R;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override
@@ -9,8 +11,6 @@ public class SettingsActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_setting);
-        //setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

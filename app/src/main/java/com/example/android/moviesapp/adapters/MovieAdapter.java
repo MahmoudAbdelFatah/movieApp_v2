@@ -10,34 +10,30 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.moviesapp.DetailActivity;
 import com.example.android.moviesapp.R;
+import com.example.android.moviesapp.activity.DetailActivity;
 import com.example.android.moviesapp.data.DataItem;
-import com.example.android.moviesapp.interfaces.MovieChosen;
+import com.example.android.moviesapp.interfaces.IMovieChosen;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Mahmoud on 3/22/2017.
- */
-
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
     private List<DataItem> lstDataItems;
     private Context mContext;
-    private MovieChosen mMovieChosen;
+    private IMovieChosen mIMovieChosen;
 
-    public RecyclerAdapter(Context context, List<DataItem> dataItems) {
+    public MovieAdapter(Context context, List<DataItem> dataItems) {
         this.lstDataItems = dataItems;
         mContext = context;
     }
 
-    public void setMovieChosen(MovieChosen mMovieChosen){
-        this.mMovieChosen = mMovieChosen;
+    public void setMovieChosen(IMovieChosen mIMovieChosen) {
+        this.mIMovieChosen = mIMovieChosen;
     }
 
     @Override
-    public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -51,7 +47,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(RecyclerAdapter.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(MovieAdapter.ViewHolder viewHolder, final int position) {
         // Get the data model based on position
         final DataItem dataItem = lstDataItems.get(position);
 
@@ -64,14 +60,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if(!MainActivity.mTwoPane) {
                     String pos = "" + position;
                     Intent intent = new Intent(mContext, DetailActivity.class);
                     intent.putExtra(intent.EXTRA_TEXT, pos);
                     mContext.startActivity(intent);
-                //}else{
-                   // mMovieChosen.paneHandleItemClick(dataItem);
-                //}
+
             }
         });
     }

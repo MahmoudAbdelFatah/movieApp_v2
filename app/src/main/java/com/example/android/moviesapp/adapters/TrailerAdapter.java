@@ -9,25 +9,21 @@ import android.widget.TextView;
 
 import com.example.android.moviesapp.R;
 import com.example.android.moviesapp.data.Trailer;
-import com.example.android.moviesapp.interfaces.OnItemClickListener;
+import com.example.android.moviesapp.interfaces.IOnItemClickListener;
 
 import java.util.ArrayList;
 
-/**
- * Created by Mahmoud on 4/13/2017.
- */
-
-public class TrailerRecyclerAdapter extends RecyclerView.Adapter<TrailerRecyclerAdapter.ViewHolder> {
+public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHolder> {
     private ArrayList<Trailer> mTrailers;
     private Context mContext;
-    private OnItemClickListener listener;
+    private IOnItemClickListener listener;
 
-    public TrailerRecyclerAdapter(ArrayList<Trailer> trailers, OnItemClickListener listener) {
+    public TrailerAdapter(ArrayList<Trailer> trailers, IOnItemClickListener listener) {
         this.mTrailers = trailers;
         this.listener = listener;
     }
 
-    public TrailerRecyclerAdapter(Context context, ArrayList<Trailer> trailers ) {
+    public TrailerAdapter(Context context, ArrayList<Trailer> trailers) {
         this.mTrailers = trailers;
         mContext = context;
     }
@@ -68,7 +64,8 @@ public class TrailerRecyclerAdapter extends RecyclerView.Adapter<TrailerRecycler
             trailer_title = (TextView) itemView.findViewById(R.id.trailer_title);
 
         }
-        public void bind(final Trailer trailer, final OnItemClickListener listener , final int position) {
+
+        public void bind(final Trailer trailer, final IOnItemClickListener listener, final int position) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(position);
